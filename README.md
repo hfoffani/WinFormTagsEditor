@@ -4,6 +4,7 @@
 
 * Design of the (+) button.
 * Design of the (x) button.
+* Put nicer.
 
 Customization
 * Input textbox font and color.
