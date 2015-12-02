@@ -24,7 +24,7 @@ namespace WinFormTest
         void winFormTagsEditor1_AfterTagsChanged(object sender, EventArgs e)
         {
             var ts = string.Join("|", this.winFormTagsEditor1.GetTags());
-            MessageBox.Show(ts);
+            // MessageBox.Show(ts);
         }
 
         protected override void OnLoad(EventArgs e)

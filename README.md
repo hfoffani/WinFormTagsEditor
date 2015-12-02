@@ -2,7 +2,6 @@
 
 ### Things To Do
 
-* Textbox to specify text on add.
 * Read-only mode.
 
 Customization
