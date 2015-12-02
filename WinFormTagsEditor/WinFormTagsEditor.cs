@@ -30,6 +30,10 @@ document.attachEvent('onclick', function(event) {
         }
     }
 });
+
+function fillcontent(content) {
+    document.getElementById('thetags').innerHTML = content
+}
 </script>
 <style>
 body { background-color:gray; }
@@ -37,40 +41,41 @@ body { background-color:gray; }
 .del { background-color:#FFFFAA; }
 p { background-color:#FFFFFF; }
 </style>
+
+<div id='thetags'>
+</div>
 ";
 
         private string templatetag =
             @"<span class='tag'>{0}</span><span class='del' id='{1}'>x</span>";
 
-        private string plus =
-            @"<span class='tag' id='plus'>+</span>";
 
         private List<string> tagslist = new List<string>();
 
         public WinFormTagsEditor()
         {
             InitializeComponent();
+
+            this.webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             this.webBrowser1.ObjectForScripting = this;
+            this.webBrowser1.DocumentText = head;
         }
 
-        protected override void OnLoad(EventArgs e)
+        void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            base.OnLoad(e);
-
-            this.webBrowser1.DocumentText = getcontent();
+            var cnt = buildcontent();
+            this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
 
-        private string getcontent()
+
+        private string buildcontent()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(head);
-            sb.AppendLine("<div>");
-            sb.AppendLine(plus);
+            sb.AppendLine("<span class='tag' id='plus'>+</span>");
             int i = 0;
             foreach (var t in this.tagslist) {
                 sb.AppendLine(string.Format(templatetag, t, ++i));
             }
-            sb.AppendLine("</div>");
             return sb.ToString();
         }
 
@@ -81,13 +86,15 @@ p { background-color:#FFFFFF; }
                 .Select(t => t.Trim())
                 .Where(t => t != "")
             );
-            this.webBrowser1.DocumentText = getcontent();
+            var cnt = buildcontent();
+            this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
 
         public void _delTag(int n)
         {
-            this.tagslist.RemoveAt(n);
-            this.webBrowser1.DocumentText = getcontent();
+            this.tagslist.RemoveAt(n-1);
+            var cnt = buildcontent();
+            this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
 
         public IEnumerable<string> GetTags()
@@ -99,6 +106,8 @@ p { background-color:#FFFFFF; }
         {
             this.tagslist = new List<string>();
             this.tagslist.AddRange(tags);
+            var cnt = buildcontent();
+            this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
     }
 }
