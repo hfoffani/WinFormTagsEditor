@@ -15,9 +15,8 @@ namespace WinFormTagsEditor
         private string head = @"
 <script>
     document.attachEvent('onclick', function(event) {
-    var specifiedElement = document.getElementById('T2');
-    var isClickInside = specifiedElement.contains(event.srcElement);
-    if (isClickInside) {
+    clickedon = event.srcElement.id;
+    if (clickedon == 'T2') {
         alert('You clicked inside Tag 2.')
     } else {
         alert('You clicked outside Tag 2.')
@@ -31,7 +30,8 @@ p { background-color:#FFFFFF; }
 </style>
 ";
 
-        private string templatetag = @"<span class='highlightme' id='T{1}'>{0}</span>";
+        private string templatetag =
+            @"<span class='highlightme'>{0}</span><span id='T{1}'>x</span>";
 
         public IList<string> Tags { get; private set; }
 
