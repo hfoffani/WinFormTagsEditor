@@ -16,11 +16,14 @@ namespace WinFormTagsEditor
 <script>
 document.attachEvent('onclick', function(event) {
     clickedon = event.srcElement.id;
-    if (clickedon == 'T2') {
-        alert('You clicked inside Tag 2.')
-    }
-    if (clickedon == 'plus') {
-        alert('You clicked inside plus.')
+    if (clickedon) {
+        if (clickedon == 'plus') {
+            alert('add tag.')
+        } else {
+            var n = parseInt(clickedon);
+            if (n != NaN)
+                alert(n - 1)
+        }
     }
 });
 </script>
@@ -33,7 +36,7 @@ p { background-color:#FFFFFF; }
 ";
 
         private string templatetag =
-            @"<span class='tag'>{0}</span><span class='del' id='T{1}'>x</span>";
+            @"<span class='tag'>{0}</span><span class='del' id='{1}'>x</span>";
 
         private string plus =
             @"<span class='tag' id='plus'>+</span>";
