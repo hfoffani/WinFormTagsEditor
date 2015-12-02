@@ -53,7 +53,9 @@ p { background-color:#FFFFFF; }
 ";
 
         private string templatetag =
-            @"<span class='tag'>{0}</span><span class='del' id='{1}'>x</span>";
+            @"<span class='tag'>{0}</span>";
+        private string templatedel =
+            @"<span class='del' id='{0}'>x</span>";
 
 
         private List<string> tagslist = new List<string>();
@@ -77,10 +79,14 @@ p { background-color:#FFFFFF; }
         private string buildcontent()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("<span class='tag' id='plus'>+</span>");
+            if (!ReadOnly)
+                sb.AppendLine("<span class='tag' id='plus'>+</span>");
             int i = 0;
             foreach (var t in this.tagslist) {
-                sb.AppendLine(string.Format(templatetag, t, ++i));
+                sb.Append(string.Format(templatetag, t));
+                if (!ReadOnly)
+                    sb.Append(string.Format(templatedel, ++i));
+                sb.AppendLine();
             }
             return sb.ToString();
         }
@@ -127,5 +133,7 @@ p { background-color:#FFFFFF; }
         }
 
         public event EventHandler<EventArgs> AfterTagsChanged;
+
+        public bool ReadOnly { get; set; }
     }
 }

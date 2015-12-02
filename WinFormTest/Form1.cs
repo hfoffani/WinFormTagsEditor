@@ -15,6 +15,8 @@ namespace WinFormTest
         {
             InitializeComponent();
 
+            // this.winFormTagsEditor1.ReadOnly = true;
+
             var ex = "hola\uFDEFque\uFDEFtal";
             this.winFormTagsEditor1.SetTags(ex.Split(new char[] { '\uFDEF' }));
 
