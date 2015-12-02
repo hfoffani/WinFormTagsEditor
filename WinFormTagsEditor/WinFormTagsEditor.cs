@@ -22,11 +22,11 @@ document.attachEvent('onclick', function(event) {
     if (clickedon) {
         if (clickedon == 'plus') {
             // alert('add tag.');
-            window.external.AddTag('new tags');
+            window.external._addTag('other, tag');
         } else {
             var n = parseInt(clickedon);
             if (n != NaN)
-                window.external.DelTag(n);
+                window.external._delTag(n);
         }
     }
 });
@@ -45,14 +45,12 @@ p { background-color:#FFFFFF; }
         private string plus =
             @"<span class='tag' id='plus'>+</span>";
 
-        public IList<string> Tags { get; private set; }
+        private List<string> tagslist = new List<string>();
 
         public WinFormTagsEditor()
         {
             InitializeComponent();
             this.webBrowser1.ObjectForScripting = this;
-
-            Tags = new List<string>();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -69,21 +67,38 @@ p { background-color:#FFFFFF; }
             sb.AppendLine("<div>");
             sb.AppendLine(plus);
             int i = 0;
-            foreach (var t in this.Tags) {
+            foreach (var t in this.tagslist) {
                 sb.AppendLine(string.Format(templatetag, t, ++i));
             }
             sb.AppendLine("</div>");
             return sb.ToString();
         }
 
-        public void AddTag(string newtag)
+        public void _addTag(string newtag)
         {
-            MessageBox.Show(" ADD " + newtag);
+            this.tagslist.AddRange(
+                newtag.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(t => t.Trim())
+                .Where(t => t != "")
+            );
+            this.webBrowser1.DocumentText = getcontent();
         }
 
-        public void DelTag(int n)
+        public void _delTag(int n)
         {
-            MessageBox.Show(" DEL " + n.ToString());
+            this.tagslist.RemoveAt(n);
+            this.webBrowser1.DocumentText = getcontent();
+        }
+
+        public IEnumerable<string> GetTags()
+        {
+            return this.tagslist;
+        }
+
+        public void SetTags(IEnumerable<string> tags)
+        {
+            this.tagslist = new List<string>();
+            this.tagslist.AddRange(tags);
         }
     }
 }

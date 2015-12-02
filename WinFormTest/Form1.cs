@@ -16,9 +16,7 @@ namespace WinFormTest
             InitializeComponent();
 
             var ex = "hola\uFDEFque\uFDEFtal";
-            foreach (var t in ex.Split(new char[] { '\uFDEF' })) {
-                this.winFormTagsEditor1.Tags.Add(t);
-            }
+            this.winFormTagsEditor1.SetTags(ex.Split(new char[] { '\uFDEF' }));
 
         }
 
