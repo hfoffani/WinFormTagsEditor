@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewTagForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewTagForm.Designer.cs">
+      <DependentUpon>NewTagForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinFormTagsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -51,6 +57,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="NewTagForm.resx">
+      <DependentUpon>NewTagForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinFormTagsEditor.resx">
       <DependentUpon>WinFormTagsEditor.cs</DependentUpon>
     </EmbeddedResource>

@@ -21,9 +21,7 @@ document.attachEvent('onclick', function(event) {
     clickedon = event.srcElement.id;
     if (clickedon) {
         if (clickedon == 'plus') {
-            var ntag = inputnewtags();
-            if (ntag)
-                window.external._addTag(ntag);
+            window.external._addTag();
         } else {
             var n = parseInt(clickedon);
             if (n != NaN)
@@ -36,20 +34,18 @@ function fillcontent(content) {
     document.getElementById('thetags').innerHTML = content
 }
 
-function inputnewtags() {
-    var r = prompt('Enter new tag', '');
-    return r;
-}
 </script>
 <style>
 body { background-color:gray; }
 .tag { background-color:#FFFF00; }
 .del { background-color:#FFFFAA; }
 p { background-color:#FFFFFF; }
+
 </style>
 
 <div id='thetags'>
 </div>
+
 ";
 
         private string templatetag =
@@ -91,8 +87,24 @@ p { background-color:#FFFFFF; }
             return sb.ToString();
         }
 
-        public void _addTag(string newtag)
+        private Form getParentForm()
         {
+            var parent = this.Parent;
+            while (!(parent is Form)) parent = parent.Parent;
+            return parent as Form;
+        }
+
+        public void _addTag()
+        {
+            var newtag = "";
+            var parent = getParentForm();
+            using (var f = new NewTagForm()) {
+                var dres = f.ShowDialog(parent);
+                if (dres != DialogResult.OK || string.IsNullOrWhiteSpace(f.Value))
+                    return;
+                newtag = f.Value;
+            }
+
             this.tagslist.AddRange(
                 newtag.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(t => t.Trim())
