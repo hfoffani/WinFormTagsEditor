@@ -99,6 +99,8 @@ p { background-color:#FFFFFF; }
             var newtag = "";
             var parent = getParentForm();
             using (var f = new NewTagForm()) {
+                f.StartPosition = FormStartPosition.Manual;
+                f.Location = new Point(Cursor.Position.X, Cursor.Position.Y - 20);
                 var dres = f.ShowDialog(parent);
                 if (dres != DialogResult.OK || string.IsNullOrWhiteSpace(f.Value))
                     return;
