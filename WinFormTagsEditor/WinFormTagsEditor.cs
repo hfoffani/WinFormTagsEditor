@@ -51,7 +51,7 @@ p { background-color:#FFFFFF; }
         private string templatetag =
             @"<span class='tag'>{0}</span>";
         private string templatedel =
-            @"<span class='del' id='{0}'>x</span>";
+            @"<span class='del' id='{0}'>&#x2717;</span>"; // BALLOT
 
 
         private List<string> tagslist = new List<string>();
@@ -76,7 +76,7 @@ p { background-color:#FFFFFF; }
         {
             var sb = new StringBuilder();
             if (!ReadOnly)
-                sb.AppendLine("<span class='tag' id='plus'>+</span>");
+                sb.AppendLine("<span class='tag' id='plus'>&#x2795;</span>"); // HEAVY PLUS SIGN
             int i = 0;
             foreach (var t in this.tagslist) {
                 sb.Append(string.Format(templatetag, t));
