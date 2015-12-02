@@ -6,10 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Security.Permissions;
 
 namespace WinFormTagsEditor
 {
-    public partial class WinFormTagsEditor: UserControl
+    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+    [System.Runtime.InteropServices.ComVisibleAttribute(true)]
+    public partial class WinFormTagsEditor : UserControl
     {
 
         private string head = @"
@@ -18,11 +21,12 @@ document.attachEvent('onclick', function(event) {
     clickedon = event.srcElement.id;
     if (clickedon) {
         if (clickedon == 'plus') {
-            alert('add tag.')
+            // alert('add tag.');
+            window.external.AddTag('new tags');
         } else {
             var n = parseInt(clickedon);
             if (n != NaN)
-                alert(n - 1)
+                window.external.DelTag(n);
         }
     }
 });
@@ -46,6 +50,7 @@ p { background-color:#FFFFFF; }
         public WinFormTagsEditor()
         {
             InitializeComponent();
+            this.webBrowser1.ObjectForScripting = this;
 
             Tags = new List<string>();
         }
@@ -71,5 +76,14 @@ p { background-color:#FFFFFF; }
             return sb.ToString();
         }
 
+        public void AddTag(string newtag)
+        {
+            MessageBox.Show(" ADD " + newtag);
+        }
+
+        public void DelTag(int n)
+        {
+            MessageBox.Show(" DEL " + n.ToString());
+        }
     }
 }
