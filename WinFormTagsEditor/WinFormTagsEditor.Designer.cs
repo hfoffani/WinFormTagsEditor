@@ -1,4 +1,4 @@
-﻿namespace WinFormTagsEditor
+﻿namespace WFTE
 {
     partial class WinFormTagsEditor
     {

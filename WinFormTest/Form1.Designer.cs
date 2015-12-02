@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.winFormTagsEditor1 = new WinFormTagsEditor.WinFormTagsEditor();
+            this.winFormTagsEditor1 = new WFTE.WinFormTagsEditor();
             this.SuspendLayout();
             // 
             // winFormTagsEditor1
@@ -51,7 +51,7 @@
 
         #endregion
 
-        private WinFormTagsEditor.WinFormTagsEditor winFormTagsEditor1;
+        private WFTE.WinFormTagsEditor winFormTagsEditor1;
     }
 }
 

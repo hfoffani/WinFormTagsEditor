@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WinFormTagsEditor
+namespace WFTE
 {
-    public partial class NewTagForm : Form
+    internal partial class NewTagForm : Form
     {
         public NewTagForm()
         {

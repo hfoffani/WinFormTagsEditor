@@ -1,4 +1,4 @@
-﻿namespace WinFormTagsEditor
+﻿namespace WFTE
 {
     partial class NewTagForm
     {
@@ -37,13 +37,13 @@
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Location = new System.Drawing.Point(0, 0);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(288, 20);
+            this.textBox1.Size = new System.Drawing.Size(198, 20);
             this.textBox1.TabIndex = 0;
             // 
             // btnok
             // 
             this.btnok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnok.Location = new System.Drawing.Point(79, 10);
+            this.btnok.Location = new System.Drawing.Point(36, 10);
             this.btnok.Name = "btnok";
             this.btnok.Size = new System.Drawing.Size(75, 23);
             this.btnok.TabIndex = 1;
@@ -53,7 +53,7 @@
             // btncancel
             // 
             this.btncancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btncancel.Location = new System.Drawing.Point(176, 10);
+            this.btncancel.Location = new System.Drawing.Point(117, 10);
             this.btncancel.Name = "btncancel";
             this.btncancel.Size = new System.Drawing.Size(75, 23);
             this.btncancel.TabIndex = 2;
@@ -66,7 +66,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btncancel;
-            this.ClientSize = new System.Drawing.Size(288, 18);
+            this.ClientSize = new System.Drawing.Size(198, 18);
             this.ControlBox = false;
             this.Controls.Add(this.btncancel);
             this.Controls.Add(this.btnok);
