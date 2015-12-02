@@ -88,6 +88,11 @@ p { background-color:#FFFFFF; }
             );
             var cnt = buildcontent();
             this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
+            var handler = this.AfterTagsChanged;
+            if (handler != null) {
+                var e = new EventArgs();
+                handler(this, e);
+            }
         }
 
         public void _delTag(int n)
@@ -95,6 +100,11 @@ p { background-color:#FFFFFF; }
             this.tagslist.RemoveAt(n-1);
             var cnt = buildcontent();
             this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
+            var handler = this.AfterTagsChanged;
+            if (handler != null) {
+                var e = new EventArgs();
+                handler(this, e);
+            }
         }
 
         public IEnumerable<string> GetTags()
@@ -109,5 +119,7 @@ p { background-color:#FFFFFF; }
             var cnt = buildcontent();
             this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
+
+        public event EventHandler<EventArgs> AfterTagsChanged;
     }
 }
