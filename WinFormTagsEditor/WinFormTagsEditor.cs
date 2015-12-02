@@ -21,8 +21,9 @@ document.attachEvent('onclick', function(event) {
     clickedon = event.srcElement.id;
     if (clickedon) {
         if (clickedon == 'plus') {
-            // alert('add tag.');
-            window.external._addTag('other, tag');
+            var ntag = inputnewtags();
+            if (ntag)
+                window.external._addTag(ntag);
         } else {
             var n = parseInt(clickedon);
             if (n != NaN)
@@ -33,6 +34,11 @@ document.attachEvent('onclick', function(event) {
 
 function fillcontent(content) {
     document.getElementById('thetags').innerHTML = content
+}
+
+function inputnewtags() {
+    var r = prompt('Enter new tag', '');
+    return r;
 }
 </script>
 <style>
