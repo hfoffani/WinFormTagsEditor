@@ -14,24 +14,29 @@ namespace WinFormTagsEditor
 
         private string head = @"
 <script>
-    document.attachEvent('onclick', function(event) {
+document.attachEvent('onclick', function(event) {
     clickedon = event.srcElement.id;
     if (clickedon == 'T2') {
         alert('You clicked inside Tag 2.')
-    } else {
-        alert('You clicked outside Tag 2.')
+    }
+    if (clickedon == 'plus') {
+        alert('You clicked inside plus.')
     }
 });
 </script>
 <style>
 body { background-color:gray; }
-.highlightme { background-color:#FFFF00; }
+.tag { background-color:#FFFF00; }
+.del { background-color:#FFFFAA; }
 p { background-color:#FFFFFF; }
 </style>
 ";
 
         private string templatetag =
-            @"<span class='highlightme'>{0}</span><span id='T{1}'>x</span>";
+            @"<span class='tag'>{0}</span><span class='del' id='T{1}'>x</span>";
+
+        private string plus =
+            @"<span class='tag' id='plus'>+</span>";
 
         public IList<string> Tags { get; private set; }
 
@@ -53,7 +58,8 @@ p { background-color:#FFFFFF; }
         {
             var sb = new StringBuilder();
             sb.AppendLine(head);
-            sb.AppendLine(@"<div id='A'>");
+            sb.AppendLine("<div>");
+            sb.AppendLine(plus);
             int i = 0;
             foreach (var t in this.Tags) {
                 sb.AppendLine(string.Format(templatetag, t, ++i));
