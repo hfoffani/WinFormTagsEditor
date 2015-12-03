@@ -25,6 +25,8 @@ namespace WFTE
 body {{
     cursor: default;
     background-color: {0};
+    margin: 1 !important;
+    padding: 0 !important;
 }}
 .tag {{
     background-color: {1};
@@ -34,12 +36,13 @@ body {{
 .del {{
     background-color: {4};
     display:none;
+    font-size: smaller;
 }}
 .plus {{
     background-color: {4};
-    opacity:0.30;
+    opacity:0.20;
     display: inline-block;
-    filter:alpha(opacity=30);
+    filter:alpha(opacity=20);
 }}
 .plusin {{
     background-color: {4};
@@ -149,13 +152,13 @@ function fillcontent(content) {
         {
             var sb = new StringBuilder();
             if (!ReadOnly)
-                sb.AppendLine("<span class='plus' id='plus'>&#x2795;</span>"); // HEAVY PLUS SIGN
+                sb.AppendLine("<span class='plus' id='plus' title='Click to add tags.'>&#x2795;</span>"); // HEAVY PLUS SIGN
             int i = 0;
             foreach (var t in this.tagslist) {
                 sb.Append(string.Format(templatetag, ++i, t));
                 if (!ReadOnly)
                     sb.Append(string.Format(templatedel, i));
-                sb.AppendLine();
+                sb.AppendLine("&nbsp;");
             }
             return sb.ToString();
         }
@@ -218,7 +221,7 @@ function fillcontent(content) {
             InitializeComponent();
 
             this.BackColor = Color.White;
-            this.HighlightColor = Color.Yellow;
+            this.HighlightColor = Color.Gold;
             this.Font = new Font("Courier New", 10, GraphicsUnit.Point);
             this.webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             this.webBrowser1.ObjectForScripting = this;
@@ -264,7 +267,7 @@ function fillcontent(content) {
         /// </summary>
         [Category("Appearance")]
         [Description("Sets the highlight color.")]
-        [DefaultValue(typeof(Color), "0xFFFF00")] // Color.Yellow
+        [DefaultValue(typeof(Color), "0xffd700")] // Color.Gold
         public Color HighlightColor { get; set; }
 
         /// <summary>
