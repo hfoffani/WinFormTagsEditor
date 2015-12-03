@@ -10,10 +10,15 @@ using System.Security.Permissions;
 
 namespace WFTE
 {
+    /// <summary>
+    /// A user control to edit a list of tags.
+    /// </summary>
     [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
     [System.Runtime.InteropServices.ComVisibleAttribute(true)]
     public partial class WinFormTagsEditor : UserControl
     {
+
+        #region implementation
 
         private string templatestyles = @"
 <style>
@@ -105,24 +110,16 @@ function fillcontent(content) {
 
         private List<string> tagslist = new List<string>();
 
-        public WinFormTagsEditor()
-        {
-            InitializeComponent();
-
-            this.webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
-            this.webBrowser1.ObjectForScripting = this;
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             var doc =
                 string.Format(this.templatestyles,
-                    "gray",                 // background color
-                    "white",                // highlight background color
+                    colorToCSS(this.BackColor),
+                    colorToCSS(this.HighlightColor),
                     "Courier New 14px, monospace",  // font
-                    "blue",                 // font-color
-                    "yellow"                // button background color.
+                    colorToCSS(this.ForeColor),
+                    colorToCSS(this.HighlightColor)
                 ) + document;
             this.webBrowser1.DocumentText = doc;
         }
@@ -133,6 +130,11 @@ function fillcontent(content) {
             this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
 
+        private string colorToCSS(Color color)
+        {
+            // return string.Format("rgb({0},{1},{2},{3})", color.R, color.G, color.B, color.A);
+            return string.Format("rgb({0},{1},{2})", color.R, color.G, color.B);
+        }
 
         private string buildcontent()
         {
@@ -195,11 +197,35 @@ function fillcontent(content) {
             }
         }
 
+        #endregion
+
+        #region public API
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public WinFormTagsEditor()
+        {
+            InitializeComponent();
+
+            HighlightColor = Color.Yellow;
+            this.webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
+            this.webBrowser1.ObjectForScripting = this;
+        }
+
+        /// <summary>
+        /// Get the current collection of tags.
+        /// </summary>
+        /// <returns>An enumerable of strings.</returns>
         public IEnumerable<string> GetTags()
         {
             return this.tagslist;
         }
 
+        /// <summary>
+        /// Loads the tags to the control.
+        /// </summary>
+        /// <param name="tags">An enumerable of strings.</param>
         public void SetTags(IEnumerable<string> tags)
         {
             this.tagslist = new List<string>();
@@ -209,8 +235,27 @@ function fillcontent(content) {
                 this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
 
+        /// <summary>
+        /// Fired when the collection of tags changes.
+        /// </summary>
         public event EventHandler<EventArgs> AfterTagsChanged;
 
+        /// <summary>
+        /// "Sets the content as read only.
+        /// </summary>
+        [Category("Behavior")]
+        [Description("Sets the content as read only.")]
+        [DefaultValue(false)]
         public bool ReadOnly { get; set; }
+
+        /// <summary>
+        /// Sets the highlight color.
+        /// </summary>
+        [Category("Appearance")]
+        [Description("Sets the highlight color.")]
+        [DefaultValue(typeof(Color), "0xFFFF00")] // Color.Yellow
+        public Color HighlightColor { get; set; }
+
+        #endregion
     }
 }
