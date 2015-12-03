@@ -40,5 +40,5 @@ Thumbs.db
 *.dotCover
 
 #nuget
-HypoLambda.*.nupkg
+*.*.nupkg
 

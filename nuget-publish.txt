@@ -1,0 +1,9 @@
+﻿How To publish in Nuget.
+
+Under the directory WinFormTagsEditor
+
+nuget pack WinFormTagsEditor.csproj
+nuget push *.nupkg
+
+Only once:
+    nuget setApiKey Your-API-Key
