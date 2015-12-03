@@ -62,6 +62,11 @@ p { background-color:#FFFFFF; }
 
             this.webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             this.webBrowser1.ObjectForScripting = this;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             this.webBrowser1.DocumentText = head;
         }
 
@@ -143,7 +148,8 @@ p { background-color:#FFFFFF; }
             this.tagslist = new List<string>();
             this.tagslist.AddRange(tags);
             var cnt = buildcontent();
-            this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
+            if (this.webBrowser1.Document != null)
+                this.webBrowser1.Document.InvokeScript("fillcontent", new String[] { cnt });
         }
 
         public event EventHandler<EventArgs> AfterTagsChanged;
