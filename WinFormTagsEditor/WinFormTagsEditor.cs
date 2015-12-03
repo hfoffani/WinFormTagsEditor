@@ -208,6 +208,7 @@ function fillcontent(content) {
         {
             InitializeComponent();
 
+            BackColor = Color.White;
             HighlightColor = Color.Yellow;
             this.webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             this.webBrowser1.ObjectForScripting = this;
@@ -255,6 +256,14 @@ function fillcontent(content) {
         [Description("Sets the highlight color.")]
         [DefaultValue(typeof(Color), "0xFFFF00")] // Color.Yellow
         public Color HighlightColor { get; set; }
+
+        /// <summary>
+        /// Sets the background color.
+        /// </summary>
+        [Category("Appearance")]
+        [Description("Sets the background color.")]
+        [DefaultValue(typeof(Color), "0xFFFFFF")] // Color.White
+        public override Color BackColor { get; set; }
 
         #endregion
     }
