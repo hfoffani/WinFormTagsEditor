@@ -35,9 +35,10 @@
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(0, 0);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(198, 20);
+            this.textBox1.Size = new System.Drawing.Size(198, 22);
             this.textBox1.TabIndex = 0;
             // 
             // btnok
@@ -66,7 +67,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btncancel;
-            this.ClientSize = new System.Drawing.Size(198, 18);
+            this.ClientSize = new System.Drawing.Size(198, 20);
             this.ControlBox = false;
             this.Controls.Add(this.btncancel);
             this.Controls.Add(this.btnok);

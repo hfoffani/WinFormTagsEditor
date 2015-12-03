@@ -15,8 +15,23 @@ namespace WFTE
     public partial class WinFormTagsEditor : UserControl
     {
 
-        private string head = @"
+        private string templatestyles = @"
+<style>
+body {{ background-color: {0}; }}
+.tag {{
+    background-color: {1};
+    font: {2};
+    color: {3};
+}}
+.del {{
+    background-color: {4};
+}}
+</style>
+";
+
+        private string document = @"
 <script>
+
 document.attachEvent('onclick', function(event) {
     clickedon = event.srcElement.id;
     if (clickedon) {
@@ -35,13 +50,6 @@ function fillcontent(content) {
 }
 
 </script>
-<style>
-body { background-color:gray; }
-.tag { background-color:#FFFF00; }
-.del { background-color:#FFFFAA; }
-p { background-color:#FFFFFF; }
-
-</style>
 
 <div id='thetags'>
 </div>
@@ -67,7 +75,15 @@ p { background-color:#FFFFFF; }
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.webBrowser1.DocumentText = head;
+            var doc =
+                string.Format(this.templatestyles,
+                    "gray",                 // background color
+                    "white",                // highlight background color
+                    "Courier New 14px, monospace",  // font
+                    "blue",                 // font-color
+                    "yellow"                // button background color.
+                ) + document;
+            this.webBrowser1.DocumentText = doc;
         }
 
         void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -81,7 +97,7 @@ p { background-color:#FFFFFF; }
         {
             var sb = new StringBuilder();
             if (!ReadOnly)
-                sb.AppendLine("<span class='tag' id='plus'>&#x2795;</span>"); // HEAVY PLUS SIGN
+                sb.AppendLine("<span class='del' id='plus'>&#x2795;</span>"); // HEAVY PLUS SIGN
             int i = 0;
             foreach (var t in this.tagslist) {
                 sb.Append(string.Format(templatetag, t));
@@ -105,7 +121,7 @@ p { background-color:#FFFFFF; }
             var parent = getParentForm();
             using (var f = new NewTagForm()) {
                 f.StartPosition = FormStartPosition.Manual;
-                f.Location = new Point(Cursor.Position.X, Cursor.Position.Y - 20);
+                f.Location = new Point(Cursor.Position.X, Cursor.Position.Y - f.Height);
                 var dres = f.ShowDialog(parent);
                 if (dres != DialogResult.OK || string.IsNullOrWhiteSpace(f.Value))
                     return;
