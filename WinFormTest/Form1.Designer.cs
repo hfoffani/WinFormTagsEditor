@@ -33,6 +33,7 @@
             // winFormTagsEditor1
             // 
             this.winFormTagsEditor1.Location = new System.Drawing.Point(226, 118);
+            this.winFormTagsEditor1.Margin = new System.Windows.Forms.Padding(4);
             this.winFormTagsEditor1.Name = "winFormTagsEditor1";
             this.winFormTagsEditor1.Size = new System.Drawing.Size(150, 150);
             this.winFormTagsEditor1.TabIndex = 0;

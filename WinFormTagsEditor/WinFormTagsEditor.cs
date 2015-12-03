@@ -117,7 +117,7 @@ function fillcontent(content) {
                 string.Format(this.templatestyles,
                     colorToCSS(this.BackColor),
                     colorToCSS(this.HighlightColor),
-                    "Courier New 14px, monospace",  // font
+                    fontToCSS(this.Font),
                     colorToCSS(this.ForeColor),
                     colorToCSS(this.HighlightColor)
                 ) + document;
@@ -133,6 +133,16 @@ function fillcontent(content) {
         private string colorToCSS(Color color)
         {
             return string.Format("rgb({0},{1},{2})", color.R, color.G, color.B);
+        }
+
+        private string fontToCSS(Font font)
+        {
+            var f = string.Format("{1}pt {2} {3} {0}",
+                font.FontFamily.Name,
+                Convert.ToInt16(font.SizeInPoints),
+                font.Bold ? "bold" : "",
+                font.Italic ? "italic" : "");
+            return f;
         }
 
         private string buildcontent()
@@ -207,8 +217,9 @@ function fillcontent(content) {
         {
             InitializeComponent();
 
-            BackColor = Color.White;
-            HighlightColor = Color.Yellow;
+            this.BackColor = Color.White;
+            this.HighlightColor = Color.Yellow;
+            this.Font = new Font("Courier New", 10, GraphicsUnit.Point);
             this.webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             this.webBrowser1.ObjectForScripting = this;
         }
@@ -263,6 +274,14 @@ function fillcontent(content) {
         [Description("Sets the background color.")]
         [DefaultValue(typeof(Color), "0xFFFFFF")] // Color.White
         public override Color BackColor { get; set; }
+
+        /// <summary>
+        /// Sets the font for the tags.
+        /// </summary>
+        [Category("Appearance")]
+        [Description("Sets the font for the tags.")]
+        [DefaultValue(typeof(Font), "Courier New, 10pt")]
+        public override Font Font { get; set; }
 
         #endregion
     }
