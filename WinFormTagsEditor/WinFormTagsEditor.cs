@@ -33,7 +33,7 @@ body {{
 }}
 .del {{
     background-color: {4};
-    visibility:hidden;
+    display:none;
 }}
 .plus {{
     background-color: {4};
@@ -74,7 +74,7 @@ document.attachEvent('onmouseover', function(event) {
             event.srcElement.className = 'plusin';
         } else if (overelem.match('tag$') || overelem.match('del$')) {
             var tid = parseInt(overelem);
-            document.getElementById(tid+'del').style.visibility = 'visible';
+            document.getElementById(tid+'del').style.display = 'inline-block';
         }
     }
 });
@@ -86,7 +86,7 @@ document.attachEvent('onmouseout', function(event) {
             event.srcElement.className = 'plus';
         } else if (overelem.match('tag$') || overelem.match('del$')) {
             var tid = parseInt(overelem);
-            document.getElementById(tid+'del').style.visibility = 'hidden';
+            document.getElementById(tid+'del').style.display = 'none';
         }
     }
 });
@@ -132,7 +132,6 @@ function fillcontent(content) {
 
         private string colorToCSS(Color color)
         {
-            // return string.Format("rgb({0},{1},{2},{3})", color.R, color.G, color.B, color.A);
             return string.Format("rgb({0},{1},{2})", color.R, color.G, color.B);
         }
 
