@@ -28,11 +28,29 @@ body {{
 }}
 .del {{
     background-color: {4};
+    opacity:0.30;
+    display: inline-block;
+    filter:alpha(opacity=30);
 }}
 .delin {{
     background-color: {4};
-    color: white;
+    opacity:1.0;
+    display: inline-block;
+    filter:alpha(opacity=100);
 }}
+.plus {{
+    background-color: {4};
+    opacity:0.30;
+    display: inline-block;
+    filter:alpha(opacity=30);
+}}
+.plusin {{
+    background-color: {4};
+    opacity:1.0;
+    display: inline-block;
+    filter:alpha(opacity=100);
+}}
+
 </style>
 ";
 
@@ -54,15 +72,19 @@ document.attachEvent('onclick', function(event) {
 
 document.attachEvent('onmouseover', function(event) {
     overelem = event.srcElement.id;
-    if (overelem && overelem == 'plus') {
-        event.srcElement.className = 'delin';
+    if (overelem) {
+        if (overelem == 'plus') {
+            event.srcElement.className = 'plusin';
+        }
     }
 });
 
 document.attachEvent('onmouseout', function(event) {
     overelem = event.srcElement.id;
-    if (overelem && overelem == 'plus') {
-        event.srcElement.className = 'del';
+    if (overelem) {
+        if (overelem == 'plus') {
+            event.srcElement.className = 'plus';
+        }
     }
 });
 
@@ -118,7 +140,7 @@ function fillcontent(content) {
         {
             var sb = new StringBuilder();
             if (!ReadOnly)
-                sb.AppendLine("<span class='del' id='plus'>&#x2795;</span>"); // HEAVY PLUS SIGN
+                sb.AppendLine("<span class='plus' id='plus'>&#x2795;</span>"); // HEAVY PLUS SIGN
             int i = 0;
             foreach (var t in this.tagslist) {
                 sb.Append(string.Format(templatetag, t));
