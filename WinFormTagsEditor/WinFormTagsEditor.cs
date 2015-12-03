@@ -28,15 +28,7 @@ body {{
 }}
 .del {{
     background-color: {4};
-    opacity:0.30;
-    display: inline-block;
-    filter:alpha(opacity=30);
-}}
-.delin {{
-    background-color: {4};
-    opacity:1.0;
-    display: inline-block;
-    filter:alpha(opacity=100);
+    visibility:hidden;
 }}
 .plus {{
     background-color: {4};
@@ -62,7 +54,7 @@ document.attachEvent('onclick', function(event) {
     if (clickedon) {
         if (clickedon == 'plus') {
             window.external._addTag();
-        } else {
+        } else if (clickedon.match('del$')){
             var n = parseInt(clickedon);
             if (n != NaN)
                 window.external._delTag(n);
@@ -75,6 +67,9 @@ document.attachEvent('onmouseover', function(event) {
     if (overelem) {
         if (overelem == 'plus') {
             event.srcElement.className = 'plusin';
+        } else if (overelem.match('tag$') || overelem.match('del$')) {
+            var tid = parseInt(overelem);
+            document.getElementById(tid+'del').style.visibility = 'visible';
         }
     }
 });
@@ -84,6 +79,9 @@ document.attachEvent('onmouseout', function(event) {
     if (overelem) {
         if (overelem == 'plus') {
             event.srcElement.className = 'plus';
+        } else if (overelem.match('tag$') || overelem.match('del$')) {
+            var tid = parseInt(overelem);
+            document.getElementById(tid+'del').style.visibility = 'hidden';
         }
     }
 });
@@ -100,9 +98,9 @@ function fillcontent(content) {
 ";
 
         private string templatetag =
-            @"<span class='tag'>{0}</span>";
+            @"<span class='tag' id='{0}tag'>{1}</span>";
         private string templatedel =
-            @"<span class='del' id='{0}'>&#x2717;</span>"; // BALLOT
+            @"<span class='del' id='{0}del'>&#x2717;</span>"; // BALLOT
 
 
         private List<string> tagslist = new List<string>();
@@ -143,9 +141,9 @@ function fillcontent(content) {
                 sb.AppendLine("<span class='plus' id='plus'>&#x2795;</span>"); // HEAVY PLUS SIGN
             int i = 0;
             foreach (var t in this.tagslist) {
-                sb.Append(string.Format(templatetag, t));
+                sb.Append(string.Format(templatetag, ++i, t));
                 if (!ReadOnly)
-                    sb.Append(string.Format(templatedel, ++i));
+                    sb.Append(string.Format(templatedel, i));
                 sb.AppendLine();
             }
             return sb.ToString();
@@ -172,7 +170,7 @@ function fillcontent(content) {
             }
 
             this.tagslist.AddRange(
-                newtag.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                newtag.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(t => t.Trim())
                 .Where(t => t != "")
             );
