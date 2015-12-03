@@ -17,7 +17,10 @@ namespace WFTE
 
         private string templatestyles = @"
 <style>
-body {{ background-color: {0}; }}
+body {{
+    cursor: default;
+    background-color: {0};
+}}
 .tag {{
     background-color: {1};
     font: {2};
@@ -25,6 +28,10 @@ body {{ background-color: {0}; }}
 }}
 .del {{
     background-color: {4};
+}}
+.delin {{
+    background-color: {4};
+    color: white;
 }}
 </style>
 ";
@@ -42,6 +49,20 @@ document.attachEvent('onclick', function(event) {
             if (n != NaN)
                 window.external._delTag(n);
         }
+    }
+});
+
+document.attachEvent('onmouseover', function(event) {
+    overelem = event.srcElement.id;
+    if (overelem && overelem == 'plus') {
+        event.srcElement.className = 'delin';
+    }
+});
+
+document.attachEvent('onmouseout', function(event) {
+    overelem = event.srcElement.id;
+    if (overelem && overelem == 'plus') {
+        event.srcElement.className = 'del';
     }
 });
 
