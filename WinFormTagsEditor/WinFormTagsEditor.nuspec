@@ -3,7 +3,7 @@
   <metadata>
     <id>WinFormTagsEditor</id>
     <version>0.2</version>
-    <title>A user control to edit a list of tags.</title>
+    <title>WinForms Tags Editor</title>
     <authors>Hernán M. Foffani</authors>
     <owners>Hernán M. Foffani</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -22,7 +22,7 @@ See details, examples and instructions in the project site.
     Publish to Github. Build in Mono OSX.
     </releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>functional programming lambda language</tags>
+    <tags>windows forms winforms editor tags</tags>
   </metadata>
   <files>
     <file src="bin/Debug/WinFormTagsEditor.dll" target="lib" /> 
