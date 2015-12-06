@@ -1,18 +1,30 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <id>WinFormTagsEditor</id>
+    <version>0.2</version>
+    <title>A user control to edit a list of tags.</title>
+    <authors>Hernán M. Foffani</authors>
+    <owners>Hernán M. Foffani</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
-    <!-- <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl> -->
+    <projectUrl>https://github.com/hfoffani/WinFormTagsEditor</projectUrl> 
     <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Published on Nuget!</releaseNotes>
+    <summary>
+A user control to edit a list of tags.
+    </summary>
+    <description>
+A user control to edit a list of tags.
+
+See details, examples and instructions in the project site.
+    </description>
+    <releaseNotes>
+    Publish to Github. Build in Mono OSX.
+    </releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>uesr control windows forms winform</tags>
+    <tags>functional programming lambda language</tags>
   </metadata>
+  <files>
+    <file src="bin/Debug/WinFormTagsEditor.dll" target="lib" /> 
+  </files>
 </package>
